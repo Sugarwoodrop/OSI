@@ -30,7 +30,7 @@ void *mythread(void *arg)
     printf("  static_var  = %d at %p\n", static_var, (void*)&static_var);
     printf("  const_var   = %d at %p\n", const_var, (void*)&const_var);
     printf("  global_var  = %d at %p\n\n", global_var, (void*)&global_var);
-    
+
     return NULL;
 }
 
@@ -39,6 +39,8 @@ int main(){
     int thread_args[THREAD_COUNT];
 	int err;
 	printf("main [%d %d %d]: Hello from main!\n", getpid(), getppid(), gettid());
+    getchar();
+    
 	for (int i = 0; i < THREAD_COUNT; i++)
 	{
         thread_args[i] = i;
@@ -48,7 +50,10 @@ int main(){
 			printf("main: pthread_create() failed: %s\n", strerror(err));
 			return EXIT_FAILURE;
 		}
-        sleep(0.1);
+        sleep(1);
 	}
+
+    printf("main: Press any key to exit...\n");
+	getchar();
     pthread_exit(NULL);
 }
